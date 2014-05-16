@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="UTF-8" />
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="" />
+<meta name="viewport" content="width=device-width" />
+<title>placeholder test</title>
+
+
+<meta http-equiv="Content-Language" content="UTF-8" />
+
+
+</head>
+
+<body>
+
+<form action="#" method="POST">
+    <input type="text" placeholder="hogege" value="" />
+
+    <input type="text" placeholder="huga" value="" />
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type='text/javascript'>
+    $(function() {
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        var appVersion = window.navigator.appVersion.toLowerCase();
+        if (userAgent.indexOf('msie') != -1) {
+            
+            //IE全般
+            if (appVersion.indexOf("msie 9.") != -1) {
+
+                var elm = $("input[type=text]");
+                var array = [];
+
+                jQuery.each($("input[type=text]"),function(i){
+                    $(this).after("<span class=\"test\">"+$(this).attr("placeholder")+"</span>");
+                    array[i] = {
+                        "input"         :$(this),
+                        "placeholder"   :$(this).next("span")
+                    }
+
+                    if($(this).val()==""){
+                        array[i].placeholder.show();
+                    }else{
+                        array[i].placeholder.hide();
+
+                    };
+
+                    if( i == elm.length - 1 ){
+                        $(".test").bind("click",function(){
+                            $(this).hide();
+                            array[$(".test").index($(this))].input.trigger("focus");
+                        });
+                    }
+                });
+
+                $("input[type=text]").bind("focusout",function(){
+                    if($(this).val()==""){
+                        array[$("input[type=text]").index($(this))].placeholder.show();
+                    }else{
+                        array[$("input[type=text]").index($(this))].placeholder.hide();
+                    };
+                    
+                });
+  
+
+            }
+        }
+              
+
+
+
+    });
+</script>
+</body>
+</html>
+
+
